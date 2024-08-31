@@ -1,13 +1,12 @@
 package com.rubenrdc.consultArtWeb.models;
 
-import com.rubenrdc.consultorArtWeb.models.interfaces.Exportable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import java.io.Serializable;
 
 /**
  *
@@ -15,7 +14,7 @@ import jakarta.persistence.Transient;
  */
 @Entity
 @Table(name = "depositos")
-public class Deposito implements Exportable{
+public class Deposito implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,20 +23,10 @@ public class Deposito implements Exportable{
     private int numero;
     @Column(length = 100)
     private String descrip, provincia, localidad, direccion;
-    
-    @Transient
-    private final Object[] row = new Object[3];
 
     public Deposito() {
     }
 
-    @Override
-    public Object[] getRow() {
-        row[0] = id;
-        row[1] = descrip;
-        row[2] = provincia;
-        return row;
-    }
 
     public int getId() {
         return id;

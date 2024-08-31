@@ -1,6 +1,5 @@
 package com.rubenrdc.consultArtWeb.models;
 
-import com.rubenrdc.consultorArtWeb.models.interfaces.Exportable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,19 +19,14 @@ import java.util.stream.Collectors;
  */
 @Entity
 @Table(name = "articulos")
-public class Articulo implements Exportable {
+public class Articulo implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Transient
-    private final int limitUbicExtra = 10, limitUbicP = 1;
-
     @Column(length = 165)
     private String codigo, descripcion, foto;
-    @Transient
-    private final Object[] row = new Object[4];
 
     @OneToMany(mappedBy = "articulo", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<ArticuloUbicacion> listCantsFromUbics;
@@ -43,15 +37,6 @@ public class Articulo implements Exportable {
     }
 
     public Articulo() {
-    }
-
-    @Override
-    public Object[] getRow() {
-        row[0] = id;
-        row[1] = codigo;
-        row[2] = descripcion;
-        row[3] = foto;
-        return row;
     }
 
     public int getId() {
@@ -117,14 +102,6 @@ public class Articulo implements Exportable {
             }
         }
         return null;
-    }
-
-    public int getLimitUbicExtra() {
-        return limitUbicExtra;
-    }
-
-    public int getLimitUbicP() {
-        return limitUbicP;
     }
 
     public List<ArticuloUbicacion> getListCantsFromUbics() {
