@@ -31,6 +31,16 @@ public class ArticuloRestController {
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
+    
+    @GetMapping(path = "articulos", params = {"descripcion"})
+    public ResponseEntity<?> getArticuloLikeDescrip(@RequestParam(name = "descripcion", required = true) String descripcion) {
+        List<ArticuloDTO> findAllArt = artDao.findArticuloDTOLikeDesc(descripcion);
+        if (!findAllArt.isEmpty()) {
+            return new ResponseEntity<>(findAllArt, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
     @GetMapping(path = "articulos/{codigo}")
     public ResponseEntity<?> getArticulo(@PathVariable String codigo) {
         ArticuloDTO find = artDao.findArticuloDTOCompleteByCode(codigo);

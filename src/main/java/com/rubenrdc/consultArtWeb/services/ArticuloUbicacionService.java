@@ -32,4 +32,7 @@ public class ArticuloUbicacionService {
     public List<ArticuloDTO> findAllArticulosDTO() {
         return artDao.findAllSimple();
     }
+    public List<ArticuloDTO> findArticuloDTOLikeDesc(String Desc){
+        return artDao.findAllSimpleLikeDescripcion(Desc);
+    }
 }
