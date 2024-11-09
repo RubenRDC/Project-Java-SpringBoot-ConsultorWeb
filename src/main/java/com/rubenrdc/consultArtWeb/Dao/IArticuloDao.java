@@ -16,7 +16,7 @@ public interface IArticuloDao extends JpaRepository<Articulo, Integer> {
 
     @Query("SELECT new com.rubenrdc.consultArtWeb.models.ArticuloDTO( id, codigo, descripcion,foto ) FROM Articulo")
     List<ArticuloDTO> findAllSimple();
-    
-    @Query("SELECT new com.rubenrdc.consultArtWeb.models.ArticuloDTO( ar.id, ar.codigo, ar.descripcion, ar.foto ) FROM Articulo ar WHERE ar.descripcion LIKE %?1%")
-    List<ArticuloDTO> findAllSimpleLikeDescripcion(String descripcion);
+
+    @Query("SELECT new com.rubenrdc.consultArtWeb.models.ArticuloDTO( ar.id, ar.codigo, ar.descripcion, ar.foto ) FROM Articulo ar WHERE ar.codigo LIKE %?1% AND ar.descripcion LIKE %?2%")
+    List<ArticuloDTO> findAllSimpleLikeDescripcion(String codigo, String descripcion);
 }

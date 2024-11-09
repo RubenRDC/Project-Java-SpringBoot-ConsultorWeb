@@ -28,17 +28,16 @@ public class ArticuloRestController {
         if (!findAllArt.isEmpty()) {
             return new ResponseEntity<>(findAllArt, HttpStatus.OK);
         }
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(List.of(), HttpStatus.OK);
     }
 
-    
-    @GetMapping(path = "articulos", params = {"descripcion"})
-    public ResponseEntity<?> getArticuloLikeDescrip(@RequestParam(name = "descripcion", required = true) String descripcion) {
-        List<ArticuloDTO> findAllArt = artDao.findArticuloDTOLikeDesc(descripcion);
+    @GetMapping(path = "articulos", params = {"codigo", "descripcion"})
+    public ResponseEntity<?> getArticuloLikeDescrip(@RequestParam(name = "descripcion", required = false, defaultValue = "") String descripcion, @RequestParam(name = "codigo", required = false, defaultValue = "") String codigo) {
+        List<ArticuloDTO> findAllArt = artDao.findArticuloDTOLikeDesc(codigo,descripcion);
         if (!findAllArt.isEmpty()) {
             return new ResponseEntity<>(findAllArt, HttpStatus.OK);
         }
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(List.of(), HttpStatus.OK);
     }
 
     @GetMapping(path = "articulos/{codigo}")
@@ -47,6 +46,6 @@ public class ArticuloRestController {
         if (find != null) {
             return new ResponseEntity<>(find, HttpStatus.OK);
         }
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(List.of(), HttpStatus.OK);
     }
 }
