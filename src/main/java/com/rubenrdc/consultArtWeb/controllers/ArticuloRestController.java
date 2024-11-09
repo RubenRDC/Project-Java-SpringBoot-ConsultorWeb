@@ -33,16 +33,30 @@ public class ArticuloRestController {
 
     @GetMapping(path = "articulos", params = {"codigo", "descripcion"})
     public ResponseEntity<?> getArticuloLikeDescrip(@RequestParam(name = "descripcion", required = false, defaultValue = "") String descripcion, @RequestParam(name = "codigo", required = false, defaultValue = "") String codigo) {
-        List<ArticuloDTO> findAllArt = artDao.findArticuloDTOLikeDesc(codigo,descripcion);
+        List<ArticuloDTO> findAllArt = artDao.findArticuloDTOLikeDesc(codigo, descripcion);
         if (!findAllArt.isEmpty()) {
             return new ResponseEntity<>(findAllArt, HttpStatus.OK);
         }
         return new ResponseEntity<>(List.of(), HttpStatus.OK);
     }
 
-    @GetMapping(path = "articulos/{codigo}")
-    public ResponseEntity<?> getArticulo(@PathVariable String codigo) {
-        ArticuloDTO find = artDao.findArticuloDTOCompleteByCode(codigo);
+    @GetMapping(path = "articulos/{x}")
+    public ResponseEntity<?> getArticulo(@PathVariable String x) {
+        ArticuloDTO find = null;
+        try {
+            int v = Integer.parseInt(x);
+            find = artDao.findArticuloDTOCompleteById(v);
+        } catch (NumberFormatException e) {
+            find = artDao.findArticuloDTOCompleteByCode(x);
+        }
+        /*switch (x) {//Java 17+ intanceof implicito en el switch!!
+            case String code ->
+                find = artDao.findArticuloDTOCompleteByCode(code);
+            case Integer id ->
+                find = artDao.findArticuloDTOCompleteById(id);
+            default -> {
+            }
+        }*/
         if (find != null) {
             return new ResponseEntity<>(find, HttpStatus.OK);
         }
