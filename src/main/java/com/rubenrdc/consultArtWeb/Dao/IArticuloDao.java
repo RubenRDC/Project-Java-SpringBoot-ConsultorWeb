@@ -13,6 +13,8 @@ import org.springframework.data.jpa.repository.Query;
 public interface IArticuloDao extends JpaRepository<Articulo, Integer> {
 
     Articulo findArticuloByCodigo(String codigo);
+    
+    Articulo findArticuloById(int id);
 
     @Query("SELECT new com.rubenrdc.consultArtWeb.models.ArticuloDTO( id, codigo, descripcion,foto ) FROM Articulo")
     List<ArticuloDTO> findAllSimple();

@@ -23,7 +23,15 @@ public class ArticuloUbicacionService {
     public ArticuloDTO findArticuloDTOCompleteByCode(String code) {
         Articulo find = artDao.findArticuloByCodigo(code);
         if (find != null) {
-            find.setListCantsFromUbics(ubicDao.findUbicacionByArticulo(code));
+            find.setListCantsFromUbics(ubicDao.findUbicacionByCodeArticulo(code));
+            return new ArticuloDTO(find);
+        }
+        return null;
+    }
+    public ArticuloDTO findArticuloDTOCompleteById(int code) {
+        Articulo find = artDao.findArticuloById(code);
+        if (find != null) {
+            find.setListCantsFromUbics(ubicDao.findUbicacionByIdArticulo(code));
             return new ArticuloDTO(find);
         }
         return null;

@@ -29,7 +29,7 @@ public class ArticuloController {
         if (!codigo.isBlank()) {
             Articulo findArticuloByCodigo = artDao.findArticuloByCodigo(codigo);
             if (findArticuloByCodigo != null) {
-                findArticuloByCodigo.setListCantsFromUbics(ubicDao.findUbicacionByArticulo(codigo));
+                findArticuloByCodigo.setListCantsFromUbics(ubicDao.findUbicacionByCodeArticulo(codigo));
                 ArticuloDTO artDTO = new ArticuloDTO(findArticuloByCodigo);
                 model.addAttribute("Articulo", artDTO);
             } else {

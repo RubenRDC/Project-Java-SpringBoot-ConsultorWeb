@@ -3,6 +3,7 @@ package com.rubenrdc.consultArtWeb.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,7 +20,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "ubicaciones_articulos", uniqueConstraints = @UniqueConstraint(columnNames = {"idUbic", "idDep", "idArt"}))
-public class ArticuloUbicacion implements Serializable{
+public class ArticuloUbicacion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +36,7 @@ public class ArticuloUbicacion implements Serializable{
     @JoinColumn(name = "idDep")
     private Deposito deposito;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idArt")
     @JsonIgnore
     private Articulo articulo;
