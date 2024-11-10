@@ -20,18 +20,10 @@ public class ArticuloUbicacionService {
     @Autowired
     private IUbicacionDao ubicDao;
 
-    public ArticuloDTO findArticuloDTOCompleteByCode(String code) {
-        Articulo find = artDao.findArticuloByCodigo(code);
+    public ArticuloDTO findArticuloDTOCompleteByIdOrCode(String x) {
+        Articulo find = util(x);
         if (find != null) {
-            find.setListCantsFromUbics(ubicDao.findUbicacionByCodeArticulo(code));
-            return new ArticuloDTO(find);
-        }
-        return null;
-    }
-    public ArticuloDTO findArticuloDTOCompleteById(int code) {
-        Articulo find = artDao.findArticuloById(code);
-        if (find != null) {
-            find.setListCantsFromUbics(ubicDao.findUbicacionByIdArticulo(code));
+            find.setListCantsFromUbics(ubicDao.findUbicacionByCodeArticulo(find.getCodigo()));
             return new ArticuloDTO(find);
         }
         return null;
@@ -42,6 +34,23 @@ public class ArticuloUbicacionService {
     }
 
     public List<ArticuloDTO> findArticuloDTOLikeDesc(String cod, String Desc) {
-        return artDao.findAllSimpleLikeDescripcion(cod,Desc);
+        return artDao.findAllSimpleLikeDescripcion(cod, Desc);
+    }
+
+    public Articulo util(String x) {
+        try {
+            int v = Integer.parseInt(x);
+            return artDao.findArticuloById(v);
+        } catch (NumberFormatException e) {
+            return artDao.findArticuloByCodigo(x);
+        }
+        /*switch (x) {//Java 17+ intanceof implicito en el switch!!
+            case String code ->
+                find = artDao.findArticuloDTOCompleteByIdOrCode(code);
+            case Integer id ->
+                find = artDao.findArticuloDTOCompleteByIdOrCode(id);
+            default -> {
+            }
+        }*/
     }
 }
