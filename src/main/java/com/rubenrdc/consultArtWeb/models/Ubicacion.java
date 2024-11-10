@@ -6,7 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
@@ -14,12 +16,15 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "ubicaciones")
-public class Ubicacion implements Serializable{
+public class Ubicacion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(length = 20, unique = true)
+
+    @Column(length = 65, unique = true)
+    @Length(max = 20)
+    @NotBlank
     private String ubic;
 
     public Ubicacion() {

@@ -1,5 +1,7 @@
 package com.rubenrdc.consultArtWeb.models;
 
+import io.micrometer.common.lang.NonNull;
+import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,10 +10,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
@@ -19,15 +23,26 @@ import java.util.stream.Collectors;
  */
 @Entity
 @Table(name = "articulos")
-public class Articulo implements Serializable{
+public class Articulo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(length = 165)
-    private String codigo, descripcion, foto;
+    @Column(length = 45)
+    @Length(max = 10, min = 4)
+    private String codigo;
 
+    @Column(length = 65)
+    @NotBlank
+    @Length(max = 65, min = 10)
+    private String descripcion;
+
+    @Column(length = 100)
+    @Length(max = 100, min = 0)
+    @Nullable
+    private String foto;
+    
     @OneToMany(mappedBy = "articulo", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<ArticuloUbicacion> listCantsFromUbics;
 
