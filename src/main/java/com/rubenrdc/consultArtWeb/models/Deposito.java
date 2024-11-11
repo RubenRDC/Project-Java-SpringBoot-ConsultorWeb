@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 /**
  *
@@ -24,11 +25,11 @@ public class Deposito implements Serializable {
     private int id;
 
     @Column(length = 11)
-    @Length(max = 11, min = 1)
+    @Range(min = 1,max = 10000)
     private int numero;
 
     @Column(length = 45)
-    @Length(max = 45, min = 5)
+    @Length(max = 45, min = 5)//Solo funciona para cadenas de texto
     @NotBlank
     private String descrip;
 
