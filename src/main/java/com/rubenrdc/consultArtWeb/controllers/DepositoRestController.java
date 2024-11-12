@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,7 +57,7 @@ public class DepositoRestController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<?> updateFullDep(@PathVariable(required = true) int id, @RequestBody(required = true) Deposito dep) {
+    public ResponseEntity<?> updateFullDep(@PathVariable(required = true) int id, @Valid @RequestBody(required = true) Deposito dep) {
         Optional<Deposito> findById = DepDao.findById(id);
         if (findById.isPresent()) {
             Deposito get = findById.get();
@@ -70,4 +71,13 @@ public class DepositoRestController {
         return new ResponseEntity(Map.of("error","Elemento que intenta actualizar completamente no se encuentra almacenado."), HttpStatus.NOT_FOUND);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteDep(@PathVariable(required = true) int id) {
+        Optional<Deposito> findById = DepDao.findById(id);
+        if (findById.isPresent()) {
+            DepDao.delete(findById.get());
+            return ResponseEntity.ok().build();
+        }
+        return new ResponseEntity(Map.of("error", "Elemento que intenta eliminar completamente no se encuentra."), HttpStatus.NOT_FOUND);
+    }
 }

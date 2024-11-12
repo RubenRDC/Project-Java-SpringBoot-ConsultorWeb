@@ -5,6 +5,7 @@ import com.rubenrdc.consultArtWeb.Dao.IUbicacionDao;
 import com.rubenrdc.consultArtWeb.models.Articulo;
 import com.rubenrdc.consultArtWeb.models.ArticuloDTO;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,5 +53,26 @@ public class ArticuloUbicacionService {
             default -> {
             }
         }*/
+    }
+
+    public Articulo saveArticulo(Articulo articulo) {
+        return artDao.save(articulo);
+    }
+
+    public Articulo findById(int id) {
+        Optional<Articulo> findById = artDao.findById(id);
+        if (findById.isPresent()) {
+            return findById.get();
+        }
+        return null;
+    }
+
+    public boolean deleteById(int id) {
+        Optional<Articulo> findById = artDao.findById(id);
+        if (findById.isPresent()) {
+            artDao.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
