@@ -44,6 +44,7 @@ public class Articulo implements Serializable {
     private String foto;
     
     @OneToMany(mappedBy = "articulo", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @Nullable
     private List<ArticuloUbicacion> listCantsFromUbics;
 
     public Articulo(int idArt, String code) {
