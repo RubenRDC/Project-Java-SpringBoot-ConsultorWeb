@@ -24,7 +24,7 @@ public class ArticuloDTO {
 
         listCantsFromUbics = new ArrayList<>();
         x.getListCantsFromUbics().stream().forEach(e -> {
-            listCantsFromUbics.add(new ArticuloUbicacionDTO(e.getStockArt(), e.getUbicacion().getUbic(), e.getDeposito().getDescrip()));
+            listCantsFromUbics.add(new ArticuloUbicacionDTO(e.getId(), e.getStockArt(), e.getUbicacion().getUbic(), e.getDeposito().getDescrip()));
         });
     }
 

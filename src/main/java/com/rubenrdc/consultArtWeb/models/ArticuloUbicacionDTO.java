@@ -6,14 +6,24 @@ package com.rubenrdc.consultArtWeb.models;
  */
 public class ArticuloUbicacionDTO {
 
+    private int id;
     private int stockInUbicacion;
     private String ubicacion;
     private String deposito;
 
-    public ArticuloUbicacionDTO(int stockArt, String ubicacion, String deposito) {
+    public ArticuloUbicacionDTO(int id, int stockArt, String ubicacion, String deposito) {
+        this.id = id;
         this.stockInUbicacion = stockArt;
         this.ubicacion = ubicacion;
         this.deposito = deposito;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getStockInUbicacion() {
