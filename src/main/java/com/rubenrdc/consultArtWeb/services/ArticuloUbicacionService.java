@@ -22,12 +22,11 @@ public class ArticuloUbicacionService {
     private IUbicacionDao ubicDao;
 
     public ArticuloDTO findArticuloDTOCompleteByIdOrCode(String x) {
-        Articulo find = util(x);
+        ArticuloDTO find = util(x);
         if (find != null) {
-            find.setListCantsFromUbics(ubicDao.findUbicacionByCodeArticulo(find.getCodigo()));
-            return new ArticuloDTO(find);
+            find.setListCantsFromUbics(ubicDao.findUbicacionDTOByCodeArticulo(find.getCodigo()));
         }
-        return null;
+        return find;
     }
 
     public List<ArticuloDTO> findAllArticulosDTO() {
@@ -38,12 +37,12 @@ public class ArticuloUbicacionService {
         return artDao.findAllSimpleLikeDescripcion(cod, Desc);
     }
 
-    public Articulo util(String x) {
+    public ArticuloDTO util(String x) {
         try {
             int v = Integer.parseInt(x);
-            return artDao.findArticuloById(v);
+            return artDao.findArticuloDTOById(v);
         } catch (NumberFormatException e) {
-            return artDao.findArticuloByCodigo(x);
+            return artDao.findArticuloDTOByCodigo(x);
         }
         /*switch (x) {//Java 17+ intanceof implicito en el switch!!
             case String code ->
