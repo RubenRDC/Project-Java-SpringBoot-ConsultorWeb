@@ -3,6 +3,7 @@ package com.rubenrdc.consultArtWeb.models;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -76,6 +77,14 @@ public class ArticuloDTO {
     }
 
     public Map<String, Integer> getStockTotalByDeps() {
+        if (stockTotalByDeps == null) {
+            if (listCantsFromUbics != null) {
+                if (!listCantsFromUbics.isEmpty()) {
+                    stockTotalByDeps = listCantsFromUbics.stream().collect(Collectors.groupingBy(x -> x.getDeposito(), Collectors.summingInt(xx -> xx.getStockInUbicacion())));
+                    return stockTotalByDeps;
+                }
+            }
+        }
         return stockTotalByDeps;
     }
 
