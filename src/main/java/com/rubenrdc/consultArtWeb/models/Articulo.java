@@ -1,6 +1,5 @@
 package com.rubenrdc.consultArtWeb.models;
 
-import io.micrometer.common.lang.NonNull;
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

@@ -2,12 +2,10 @@ package com.rubenrdc.consultArtWeb.controllers;
 
 import com.rubenrdc.consultArtWeb.models.Articulo;
 import com.rubenrdc.consultArtWeb.models.ArticuloDTO;
-import com.rubenrdc.consultArtWeb.models.Deposito;
 import com.rubenrdc.consultArtWeb.services.ArticuloUbicacionService;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
