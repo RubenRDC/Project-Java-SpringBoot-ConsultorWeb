@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
  *
  * @author Ruben
  */
-public interface IUbicacionDao extends JpaRepository<ArticuloUbicacion, Integer> {
+public interface IArticuloUbicacionDao extends JpaRepository<ArticuloUbicacion, Integer> {
 
     @Query("""
            SELECT ua

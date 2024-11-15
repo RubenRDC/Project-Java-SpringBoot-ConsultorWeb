@@ -23,7 +23,7 @@ public class Ubicacion implements Serializable {
     private int id;
 
     @Column(length = 65, unique = true)
-    @Length(max = 20)
+    @Length(min = 11, max = 11)
     @NotBlank
     private String ubic;
 

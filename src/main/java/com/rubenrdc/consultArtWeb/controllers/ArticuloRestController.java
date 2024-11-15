@@ -61,7 +61,7 @@ public class ArticuloRestController {
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<?> updateFullArticulo(@PathVariable(required = true) int id, @Valid @RequestBody(required = true) Articulo art) {
-        Articulo findById = artDao.findById(id);
+        Articulo findById = artDao.findArticuloById(id);
         if (findById != null) {
             findById.setCodigo(art.getCodigo());
             findById.setDescripcion(art.getDescripcion());
@@ -73,7 +73,7 @@ public class ArticuloRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteArticulo(@PathVariable(required = true) int id) {
-        if (artDao.deleteById(id)) {
+        if (artDao.deleteArticuloById(id)) {
             return ResponseEntity.ok().build();
         }
         return new ResponseEntity(Map.of("error", "Elemento que intenta eliminar completamente no se encuentra."), HttpStatus.NOT_FOUND);

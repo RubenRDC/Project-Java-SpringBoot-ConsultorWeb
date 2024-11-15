@@ -1,7 +1,6 @@
 package com.rubenrdc.consultArtWeb.services;
 
 import com.rubenrdc.consultArtWeb.Dao.IArticuloDao;
-import com.rubenrdc.consultArtWeb.Dao.IUbicacionDao;
 import com.rubenrdc.consultArtWeb.models.Articulo;
 import com.rubenrdc.consultArtWeb.models.ArticuloDTO;
 import com.rubenrdc.consultArtWeb.models.ArticuloUbicacionDTO;
@@ -9,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.rubenrdc.consultArtWeb.Dao.IArticuloUbicacionDao;
 
 /**
  *
@@ -20,8 +20,8 @@ public class ArticuloUbicacionService {
     @Autowired
     private IArticuloDao artDao;
     @Autowired
-    private IUbicacionDao ubicDao;
-
+    private IArticuloUbicacionDao ubicDao;
+    
     public ArticuloDTO findArticuloDTOCompleteByIdOrCode(String x) {
         ArticuloDTO find = util(x);
         if (find != null) {
@@ -59,7 +59,7 @@ public class ArticuloUbicacionService {
         return artDao.save(articulo);
     }
 
-    public Articulo findById(int id) {
+    public Articulo findArticuloById(int id) {
         Optional<Articulo> findById = artDao.findById(id);
         if (findById.isPresent()) {
             return findById.get();
@@ -67,7 +67,11 @@ public class ArticuloUbicacionService {
         return null;
     }
 
-    public boolean deleteById(int id) {
+    public Articulo findArticuloByCode(String code) {
+        return artDao.findArticuloByCodigo(code);
+    }
+
+    public boolean deleteArticuloById(int id) {
         Optional<Articulo> findById = artDao.findById(id);
         if (findById.isPresent()) {
             artDao.deleteById(id);

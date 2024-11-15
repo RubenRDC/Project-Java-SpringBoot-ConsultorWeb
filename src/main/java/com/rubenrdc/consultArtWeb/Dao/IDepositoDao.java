@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Ruben
  */
-public interface IDepositoDao extends JpaRepository<Deposito, Integer>{
+public interface IDepositoDao extends JpaRepository<Deposito, Integer> {
+    Deposito findByDescrip(String descrip);
 }
