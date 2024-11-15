@@ -4,6 +4,7 @@ import com.rubenrdc.consultArtWeb.Dao.IArticuloDao;
 import com.rubenrdc.consultArtWeb.Dao.IUbicacionDao;
 import com.rubenrdc.consultArtWeb.models.Articulo;
 import com.rubenrdc.consultArtWeb.models.ArticuloDTO;
+import com.rubenrdc.consultArtWeb.models.ArticuloUbicacionDTO;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,5 +74,9 @@ public class ArticuloUbicacionService {
             return true;
         }
         return false;
+    }
+
+    public List<ArticuloUbicacionDTO> findArticuloUbicacionbyCodeArticulo(String codigo) {
+        return ubicDao.findUbicacionDTOByCodeArticulo(codigo);
     }
 }
