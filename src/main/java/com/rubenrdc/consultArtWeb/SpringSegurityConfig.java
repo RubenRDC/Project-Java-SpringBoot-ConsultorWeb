@@ -17,7 +17,7 @@ public class SpringSegurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests((authz) -> authz
                 .requestMatchers(HttpMethod.GET, "/api/articulos", "/api/articulos/{codigo}","api/depositos","api/depositos/{cod}","api/articulos/{codigo}/ubicaciones").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/articulos", "/api/articulos/{codigo}","api/depositos","api/depositos/{cod}").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/articulos", "/api/articulos/{codigo}","api/depositos","api/depositos/{cod}","api/articulos/{codigo}/ubicaciones").permitAll()
                 .requestMatchers(HttpMethod.PUT, "/api/articulos", "/api/articulos/{codigo}","api/depositos","api/depositos/{cod}").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/api/articulos", "/api/articulos/{codigo}","api/depositos","api/depositos/{cod}").permitAll()
                 .requestMatchers(HttpMethod.GET, "/login").permitAll()

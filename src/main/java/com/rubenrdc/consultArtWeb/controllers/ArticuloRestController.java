@@ -47,7 +47,7 @@ public class ArticuloRestController {
         if (find != null) {
             return new ResponseEntity<>(find, HttpStatus.OK);
         }
-        return new ResponseEntity<>(List.of(), HttpStatus.OK);
+        return new ResponseEntity<>(List.of(), HttpStatus.NOT_FOUND);
     }
 
     @PostMapping()

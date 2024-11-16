@@ -1,11 +1,12 @@
 package com.rubenrdc.consultArtWeb.controllers;
 
-import com.rubenrdc.consultArtWeb.models.Articulo;
 import com.rubenrdc.consultArtWeb.models.ArticuloUbicacionDTO;
 import com.rubenrdc.consultArtWeb.services.ArticuloUbicacionService;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,5 +33,14 @@ public class ArticuloUbicacionRestController {
             return ResponseEntity.ok().body(findArticuloUbicacionbyCodeArticulo);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<?> AddUbicInArt(@PathVariable String codigo, @Valid @RequestBody(required = true) ArticuloUbicacionDTO ubic) {
+        Map saveArticuloUbicacion = artUbicService.saveArticuloUbicacion(ubic, codigo);
+        if (saveArticuloUbicacion.isEmpty()) {
+            return new ResponseEntity(ubic, HttpStatus.CREATED);
+        }
+        return new ResponseEntity(saveArticuloUbicacion, HttpStatus.BAD_REQUEST);
     }
 }
