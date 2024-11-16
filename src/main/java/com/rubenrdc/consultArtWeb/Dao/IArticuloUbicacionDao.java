@@ -2,9 +2,12 @@ package com.rubenrdc.consultArtWeb.Dao;
 
 import com.rubenrdc.consultArtWeb.models.ArticuloUbicacion;
 import com.rubenrdc.consultArtWeb.models.ArticuloUbicacionDTO;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
@@ -33,4 +36,9 @@ public interface IArticuloUbicacionDao extends JpaRepository<ArticuloUbicacion, 
            ORDER BY ua.deposito.descrip
        """)
     List<ArticuloUbicacionDTO> findUbicacionDTOByCodeArticulo(String codigo);
+
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO ubicaciones_articulos(idArt,idUbic,idDep,stockArt) VALUES(:idArt,:idUbic,:idDep,:stockArt) ", nativeQuery = true)
+    int addUbicacionInArticulo(@Param(value = "idArt") int idArt, @Param(value = "idUbic") int idUbic, @Param(value = "idDep") int idDep, @Param(value = "stockArt") int stockArt);
 }
