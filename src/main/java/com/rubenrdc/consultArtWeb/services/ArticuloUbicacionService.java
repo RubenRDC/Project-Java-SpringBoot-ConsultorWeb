@@ -112,4 +112,8 @@ public class ArticuloUbicacionService {
         }
         return Map.of(artUbicDTO.getDeposito(), "Deposito Inexistente");
     }
+
+    public boolean deleteArticuloUbicacionByIdAndCode(int idRelacion, String codigoArt) {
+        return ArtUbicDao.deleteByIdAndArticulo_Codigo(idRelacion, codigoArt) > 0;
+    }
 }

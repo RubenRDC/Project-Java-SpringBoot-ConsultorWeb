@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,11 +37,19 @@ public class ArticuloUbicacionRestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> AddUbicInArt(@PathVariable String codigo, @Valid @RequestBody(required = true) ArticuloUbicacionDTO ubic) {
+    public ResponseEntity<?> AddUbicInArt(@PathVariable(required = true) String codigo, @Valid @RequestBody(required = true) ArticuloUbicacionDTO ubic) {
         Map saveArticuloUbicacion = artUbicService.saveArticuloUbicacion(ubic, codigo);
         if (saveArticuloUbicacion.isEmpty()) {
             return new ResponseEntity(ubic, HttpStatus.CREATED);
         }
         return new ResponseEntity(saveArticuloUbicacion, HttpStatus.BAD_REQUEST);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<?> DelectUbicInArt(@PathVariable(required = true) String codigo, @PathVariable(required = true) int id) {
+        if (artUbicService.deleteArticuloUbicacionByIdAndCode(id, codigo)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.badRequest().build();
     }
 }

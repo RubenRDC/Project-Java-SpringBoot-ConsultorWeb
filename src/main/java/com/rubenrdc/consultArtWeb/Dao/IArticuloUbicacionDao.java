@@ -41,4 +41,10 @@ public interface IArticuloUbicacionDao extends JpaRepository<ArticuloUbicacion, 
     @Transactional
     @Query(value = "INSERT INTO ubicaciones_articulos(idArt,idUbic,idDep,stockArt) VALUES(:idArt,:idUbic,:idDep,:stockArt) ", nativeQuery = true)
     int addUbicacionInArticulo(@Param(value = "idArt") int idArt, @Param(value = "idUbic") int idUbic, @Param(value = "idDep") int idDep, @Param(value = "stockArt") int stockArt);
+
+    //Este metodo Spring podria inferir la operacion por el nombre pero al dejar dicha operacion a Spring esta crea el objeto completo de ArticuloUbicacion para luego recien eliminarlo...
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM ArticuloUbicacion au WHERE au.id= :id AND au.articulo.codigo = :codigo")
+    int deleteByIdAndArticulo_Codigo(int id, String codigo);
 }
