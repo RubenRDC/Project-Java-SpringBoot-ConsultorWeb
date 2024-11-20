@@ -1,12 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>TODO supply a title</title>
+        <title th:if="${Articulo != null}" th:text="${Articulo.codigo} + ' - '+ ${Articulo.descripcion}"></title>
+        <title th:unless="${Articulo != null}"th:text="'Articulo No Encontrado.'"></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <h2>Detalle de Articulo</h2>
-        
+        <div th:if="${Articulo != null}">
+            <img th:if="${Articulo.foto != null}" th:src="'https:'+${Articulo.foto}" alt="alt"/>
+            <h2 th:text="${Articulo.codigo} + ' - '+ ${Articulo.descripcion}"></h2>
+            <p th:text="'ID: ' + ${Articulo.id}"></p>
+            <p th:text="'Codigo: ' + ${Articulo.codigo}"></p>
+            <p th:text="'Descripcion: ' + ${Articulo.descripcion}"></p>
+
+            <table th:if="${!Articulo.listCantsFromUbics.isEmpty}">
+                <caption>Tabla de Stock por Ubicaciones</caption>
+                <thead>
+                    <tr>
+                        <th>id Relacion</th>
+                        <th>Stock en la Ubicacion</th>
+                        <th>Ubicacion</th>
+                        <th>Deposito</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="l : ${Articulo.listCantsFromUbics}">
+                        <td th:text='${l.id}'></td>
+                        <td th:text='${l.stockInUbicacion}'></td>
+                        <td th:text='${l.ubicacion}'></td>
+                        <td th:text='${l.deposito}'></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <table th:if="${!Articulo.stockTotalByDeps.isEmpty}">
+                <caption>Tabla de Stock por Deposito</caption>
+                <thead>
+                    <tr>
+                        <th>Nombre Deposito</th>
+                        <th>Stock en el deposito</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="a : ${Articulo.stockTotalByDeps}">
+                        <td th:text='${a.key}'></td>
+                        <td th:text='${a.value}'></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+        <h2 th:unless="${Articulo != null}"th:text="'Articulo No Encontrado.'"></h2>
     </body>
 </html>
