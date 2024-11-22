@@ -5,7 +5,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h1>Lista de Articulos</h1>
-        
+        <h2>Lista de Articulos</h2>
+        <form action="/articulos" method="get">
+            <input type="text" name="codigo" value="" autocomplete="off" placeholder="CODIGO"/>
+            <input type="text" name="descripcion" value="" autocomplete="off" placeholder="DESCRIPCION"/>
+            <input type="submit" value="Buscar" />
+        </form>
+        <table>
+            <caption>Lista de Articulos</caption>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Foto</th>
+                    <th>Codido</th>
+                    <th>Descripcion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="l : ${articulos}">
+                    <td th:text='${l.id}'></td>
+                    <td>
+                        <img style="max-width: 100px;" th:if="${l.foto != null}" th:src="'https:'+${l.foto}" alt="alt"/>
+                        <p th:unless="${l.foto != null}">No Disponible</p>
+                    </td>
+                    <td th:text='${l.codigo}'></td>
+                    <td th:text='${l.descripcion}'></td>
+                </tr>
+            </tbody>
+        </table>
+
     </body>
 </html>
