@@ -11,7 +11,7 @@
             <input type="text" name="descripcion" value="" autocomplete="off" placeholder="DESCRIPCION"/>
             <input type="submit" value="Buscar" />
         </form>
-        <table>
+        <table style="text-align: center">
             <caption>Lista de Articulos</caption>
             <thead>
                 <tr>
@@ -19,6 +19,7 @@
                     <th>Foto</th>
                     <th>Codido</th>
                     <th>Descripcion</th>
+                    <th>Mas Info</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +31,7 @@
                     </td>
                     <td th:text='${l.codigo}'></td>
                     <td th:text='${l.descripcion}'></td>
+                    <td><a th:href="'articulos/'+${l.codigo}">[]</a></td>
                 </tr>
             </tbody>
         </table>
