@@ -5,53 +5,57 @@
         <title th:unless="${Articulo != null}"th:text="'Articulo No Encontrado.'"></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{/css/css.css}"/>
     </head>
     <body>
-        <h2>Detalle de Articulo</h2>
-        <div th:if="${Articulo != null}">
-            <img th:if="${Articulo.foto != null}" th:src="'https:'+${Articulo.foto}" alt="alt"/>
-            <h2 th:text="${Articulo.codigo} + ' - '+ ${Articulo.descripcion}"></h2>
-            <p th:text="'ID: ' + ${Articulo.id}"></p>
-            <p th:text="'Codigo: ' + ${Articulo.codigo}"></p>
-            <p th:text="'Descripcion: ' + ${Articulo.descripcion}"></p>
+        <main>
+            <section class="contenedor">
+                <h1>Informacion Encontrada:</h1>
+                <div class="contenedor_articulo" th:if="${Articulo != null}">
+                    <img th:if="${Articulo.foto != null}" th:src="'https:'+${Articulo.foto}" th:alt="'Imagen del articulo con el codigo: '+${Articulo.codigo}"/>
+                    <h2 th:text="${Articulo.codigo} + ' - '+ ${Articulo.descripcion}"></h2>
+                    <p th:text="'ID: ' + ${Articulo.id}"></p>
+                    <p th:text="'Codigo: ' + ${Articulo.codigo}"></p>
+                    <p th:text="'Descripcion: ' + ${Articulo.descripcion}"></p>
 
-            <table th:if="${Articulo.listCantsFromUbics!=null && !Articulo.listCantsFromUbics.isEmpty}">
-                <caption>Tabla de Stock por Ubicaciones</caption>
-                <thead>
-                    <tr>
-                        <th>id Relacion</th>
-                        <th>Stock en la Ubicacion</th>
-                        <th>Ubicacion</th>
-                        <th>Deposito</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="l : ${Articulo.listCantsFromUbics}">
-                        <td th:text='${l.id}'></td>
-                        <td th:text='${l.stockInUbicacion}'></td>
-                        <td th:text='${l.ubicacion}'></td>
-                        <td th:text='${l.deposito}'></td>
-                    </tr>
-                </tbody>
-            </table>
+                    <table class="table" th:if="${Articulo.listCantsFromUbics!=null && !Articulo.listCantsFromUbics.isEmpty}">
+                        <caption>Tabla de Stock por Ubicaciones</caption>
+                        <thead>
+                            <tr>
+                                <th>id Relacion</th>
+                                <th>Stock en la Ubicacion</th>
+                                <th>Ubicacion</th>
+                                <th>Deposito</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="l : ${Articulo.listCantsFromUbics}">
+                                <td th:text='${l.id}'></td>
+                                <td th:text='${l.stockInUbicacion}'></td>
+                                <td th:text='${l.ubicacion}'></td>
+                                <td th:text='${l.deposito}'></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-            <table th:if="${Articulo.stockTotalByDeps!=null && !Articulo.stockTotalByDeps.isEmpty}">
-                <caption>Tabla de Stock por Deposito</caption>
-                <thead>
-                    <tr>
-                        <th>Nombre Deposito</th>
-                        <th>Stock en el deposito</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="a : ${Articulo.stockTotalByDeps}">
-                        <td th:text='${a.key}'></td>
-                        <td th:text='${a.value}'></td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-        <h2 th:unless="${Articulo != null}"th:text="'Articulo No Encontrado.'"></h2>
+                    <table class="table" th:if="${Articulo.stockTotalByDeps!=null && !Articulo.stockTotalByDeps.isEmpty}">
+                        <caption>Tabla de Stock por Deposito</caption>
+                        <thead>
+                            <tr>
+                                <th>Nombre Deposito</th>
+                                <th>Stock en el deposito</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="a : ${Articulo.stockTotalByDeps}">
+                                <td th:text='${a.key}'></td>
+                                <td th:text='${a.value}'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="error" th:unless="${Articulo != null}" th:text="'Articulo No Encontrado.'"></div>
+            </section>
+        </main>
     </body>
 </html>

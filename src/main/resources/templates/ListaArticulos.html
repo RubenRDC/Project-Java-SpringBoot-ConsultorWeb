@@ -3,38 +3,43 @@
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{/css/css.css}"/>
     </head>
     <body>
-        <h2>Lista de Articulos</h2>
-        <form action="/articulos" method="get">
-            <input type="text" name="codigo" value="" autocomplete="off" placeholder="CODIGO"/>
-            <input type="text" name="descripcion" value="" autocomplete="off" placeholder="DESCRIPCION"/>
-            <input type="submit" value="Buscar" />
-        </form>
-        <table style="text-align: center">
-            <caption>Lista de Articulos</caption>
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Foto</th>
-                    <th>Codido</th>
-                    <th>Descripcion</th>
-                    <th>Mas Info</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="l : ${articulos}">
-                    <td th:text='${l.id}'></td>
-                    <td>
-                        <img style="max-width: 100px;" th:if="${l.foto != null}" th:src="'https:'+${l.foto}" alt="alt"/>
-                        <p th:unless="${l.foto != null}">No Disponible</p>
-                    </td>
-                    <td th:text='${l.codigo}'></td>
-                    <td th:text='${l.descripcion}'></td>
-                    <td><a th:href="'articulos/'+${l.codigo}">[]</a></td>
-                </tr>
-            </tbody>
-        </table>
-
+        <main>
+            <h1>Consultor de Articulos con SpringBoot y Thymeleaf</h1>
+            <section id="BuscadorDeArticulos" class="contenedor">
+                <h2>Lista de Articulos</h2>
+                <form class="buscador" action="/articulos" method="get">
+                    <input type="text" name="codigo" value="" autocomplete="off" placeholder="CODIGO"/>
+                    <input type="text" name="descripcion" value="" autocomplete="off" placeholder="DESCRIPCION"/>
+                    <input type="submit" value="Buscar" />
+                </form>
+                <table class="table" style="text-align: center">
+                    <caption>Resultados:</caption>
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Foto</th>
+                            <th>Codido</th>
+                            <th>Descripcion</th>
+                            <th>Mas Info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="l : ${articulos}">
+                            <td th:text='${l.id}'></td>
+                            <td>
+                                <img width="100px" th:if="${l.foto != null}" th:src="'https:'+${l.foto}" th:alt="'Imagen del articulo con el codigo: '+${l.codigo}"/>
+                                <p th:unless="${l.foto != null}">No Disponible</p>
+                            </td>
+                            <td th:text='${l.codigo}'></td>
+                            <td th:text='${l.descripcion}'></td>
+                            <td><a class="btn" th:href="'articulos/'+${l.codigo}">Ver Más</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
     </body>
 </html>

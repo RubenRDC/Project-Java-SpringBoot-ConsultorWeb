@@ -21,6 +21,7 @@ public class SpringSegurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/api/articulos", "/api/articulos/{codigo}", "api/depositos", "api/depositos/{cod}").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/api/articulos", "/api/articulos/{codigo}", "api/depositos", "api/depositos/{cod}", "api/articulos/{codigo}/ubicaciones/{id}").permitAll()
                 .requestMatchers(HttpMethod.GET, "/login").permitAll()
+                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()//CSS JS Image estaticos.
                 //.requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                 //.requestMatchers(HttpMethod.POST, "/api/users").hasRole("ADMIN")
                 //.requestMatchers(HttpMethod.GET, "/api/products", "/api/products/{id}").hasAnyRole("ADMIN", "USER")
